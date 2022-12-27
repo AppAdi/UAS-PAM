@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">UAS PAM</string>
+    <string-array name="store">
+        <item>Cihampelas</item>
+        <item>Cibiru</item>
+    </string-array>
+</resources>
