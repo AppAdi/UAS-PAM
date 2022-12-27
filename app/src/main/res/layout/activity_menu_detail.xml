@@ -4,31 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MenuDetail">
+    tools:context=".Activity.MenuDetail">
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/pizzadetail"
-        android:id="@+id/iv_pizza_detail"
+        android:layout_height="250dp"
+        android:background="@color/black"
+        android:id="@+id/iv_image_detail"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/tv_nama_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_mono_medium"
+        android:fontFamily="@font/roboto_bold"
+
         android:text="Pepperoni Pizza"
         android:layout_marginBottom="15dp"
         android:layout_marginStart="20dp"
         android:textColor="@color/white"
         android:textSize="26dp"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_pizza_detail"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_image_detail"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_price"
+        android:id="@+id/tv_price_detail"
         android:text="Price: Rp 66.000,00"
         android:textColor="#733F0E"
         android:textSize="20dp"
@@ -36,7 +38,7 @@
         android:layout_marginEnd="20dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_pizza_detail" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_image_detail" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -47,10 +49,10 @@
         android:layout_marginTop="15dp"
         android:paddingEnd="20dp"
         android:paddingStart="20dp"
-        android:id="@+id/tv_detail"
+        android:id="@+id/tv_detail_detail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_price" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_price_detail" />
 
     <Button
         android:layout_width="360dp"
@@ -63,7 +65,7 @@
         android:id="@+id/btn_order"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_detail"
+        app:layout_constraintTop_toBottomOf="@+id/tv_detail_detail"
         app:strokeColor="#F9B916"
         app:strokeWidth="0.7dp" />
 

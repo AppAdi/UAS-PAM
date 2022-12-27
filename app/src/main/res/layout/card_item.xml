@@ -2,17 +2,15 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_margin="6dp"
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="6dp"
         android:layout_margin="10dp">
 
         <ImageView
-            android:id="@+id/iv_pizza"
+            android:id="@+id/iv_image"
             android:layout_width="153dp"
             android:layout_height="wrap_content"
             android:src="@drawable/pizza"
@@ -27,30 +25,19 @@
             android:text="Pepperoni Pizza"
             android:textColor="#733F0E"
             android:textSize="15dp"
-            app:layout_constraintStart_toEndOf="@+id/iv_pizza"
+            android:layout_marginTop="5dp"
+            app:layout_constraintStart_toEndOf="@+id/iv_image"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_detail"
-            android:layout_width="230dp"
+            android:layout_width="190dp"
             android:layout_height="wrap_content"
             android:text="Cocok bagi anda yang ingin merasakan pizza original dengan taburan keju dan daging asap yang lezat"
             android:textColor="#733F0E"
             android:textSize="15dp"
-            app:layout_constraintStart_toEndOf="@+id/iv_pizza"
+            app:layout_constraintStart_toEndOf="@+id/iv_image"
             app:layout_constraintTop_toBottomOf="@+id/tv_nama" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_id"
-            android:visibility="gone"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_price"
-            android:visibility="gone"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

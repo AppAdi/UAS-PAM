@@ -27,20 +27,21 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ListMenu extends AppCompatActivity {
-    private RecyclerView rvData;
-    private RecyclerView.Adapter adData;
-    private RecyclerView.LayoutManager lmData;
-    private List<DataModel> listData = new ArrayList<>();
+
+    private RecyclerView recyclerView;
+    private AdapterData mainAdapter;
+    private Retrofit retrofit;
+    private APIRequestData dataService;
+    
+    int foodImage [] = {R.drawable.pizza, R.drawable.pageti, R.drawable.burger, R.drawable.steak, R.drawable.fries, R.drawable.fries};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_menu);
-        rvData = findViewById(R.id.rv_data);
-        lmData = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        rvData.setLayoutManager(lmData);
-        retrieveData();
-
         setupRetrofit();
+        setupRecyclerView();
+        attemptFetchPhotos();
     }
 
     private void setupRetrofit() {
@@ -48,38 +49,43 @@ public class ListMenu extends AppCompatActivity {
                 .setLenient()
                 .create();
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://jsonplaceholder.typicode.com")
+                .baseUrl("https://retoolapi.dev/StWODX/")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
-        APIRequestData = retrofit.create(APIRequestData.class);
+        dataService = retrofit.create(APIRequestData.class);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        retrieveData();
+    private void setupRecyclerView() {
+        recyclerView = findViewById(R.id.rv_data);
+        recyclerView.setAdapter(mainAdapter);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(
+                this,
+                LinearLayoutManager.VERTICAL, false
+        );
+        recyclerView.setLayoutManager(layoutManager);
     }
 
-    public void retrieveData(){
-        APIRequestData ardData = RetroServer.konekRetrofit().create(APIRequestData.class);
-        Call<ResponseModel> tampilData = ardData.ardRetrieveData();
-
-        tampilData.enqueue(new Callback<ResponseModel>() {
+    private void attemptFetchPhotos() {
+        Call<ArrayList<DataModel>> call = dataService.ardRetrieveData();
+        call.enqueue(new Callback<ArrayList<DataModel>>() {
             @Override
-            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                listData = response.body().getData();
-
-                adData = new AdapterData(ListMenu.this, listData);
-                rvData.setAdapter(adData);
-                adData.notifyDataSetChanged();
+            public void onResponse(Call<ArrayList<DataModel>> call, Response<ArrayList<DataModel>> response) {
+                ArrayList<DataModel> listData = response.body();
+                mainAdapter = new AdapterData(ListMenu.this, listData, foodImage);
+                recyclerView.setAdapter(mainAdapter);
             }
 
             @Override
-            public void onFailure(Call<ResponseModel> call, Throwable t) {
-                Toast.makeText(ListMenu.this, "Gagal Server :"+t.getMessage(), Toast.LENGTH_LONG).show();
-                System.out.println(t.getMessage());
+            public void onFailure(Call<ArrayList<DataModel>> call, Throwable t) {
+                Toast.makeText(ListMenu.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
+
+
+
+
+
+
 }

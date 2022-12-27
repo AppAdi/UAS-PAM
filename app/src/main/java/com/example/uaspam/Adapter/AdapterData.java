@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.uaspam.Activity.MenuDetail;
 import com.example.uaspam.Model.DataModel;
 import com.example.uaspam.R;
 
@@ -29,10 +31,12 @@ import retrofit2.Response;
 public class AdapterData extends RecyclerView.Adapter<AdapterData.HolderData>{
     private Context ctx;
     private ArrayList<DataModel> listData;
+    private int[] images;
 
-    public AdapterData(Context ctx, ArrayList<DataModel> listData){
+    public AdapterData(Context ctx, ArrayList<DataModel> listData, int[] images){
         this.ctx = ctx;
         this.listData = listData;
+        this.images = images;
     }
 
     @NonNull
@@ -45,17 +49,26 @@ public class AdapterData extends RecyclerView.Adapter<AdapterData.HolderData>{
 
     @Override
     public void onBindViewHolder(@NonNull AdapterData.HolderData holder, int position) {
-//        DataModel dm = listData.get(position);
+        final DataModel dm = listData.get(position);
 
-        holder.tvId.setText(String.valueOf(listData.getId()));
         holder.tvNama.setText(dm.getFoodName());
         holder.tvDetail.setText(dm.getDetails());
-        holder.tvPrice.setText(dm.getPrice());
+        holder.rowImage.setImageResource(images[position]);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateToDetailActivity(listData.getId());
+                int imageID = images[position];
+                String varNama = dm.getFoodName();
+                String varDetail = dm.getDetails();
+                String varPrice = dm.getPrice();
+
+                Intent kirim = new Intent(ctx, MenuDetail.class);
+                kirim.putExtra("xImage", imageID);
+                kirim.putExtra("xNama",varNama);
+                kirim.putExtra("xDetail",varDetail);
+                kirim.putExtra("xPrice",varPrice);
+                ctx.startActivity(kirim);
             }
         });
     }
@@ -66,16 +79,15 @@ public class AdapterData extends RecyclerView.Adapter<AdapterData.HolderData>{
     }
 
     public class HolderData extends RecyclerView.ViewHolder{
-        TextView tvId, tvNama, tvDetail, tvPrice;
-        CardView carditem;
+        TextView tvNama, tvDetail;
+        ImageView rowImage;
 
         public HolderData(@NonNull View itemView){
             super(itemView);
 
-            tvId= itemView.findViewById(R.id.tv_id);
             tvNama = itemView.findViewById(R.id.tv_nama);
             tvDetail = itemView.findViewById(R.id.tv_detail);
-            tvPrice = itemView.findViewById(R.id.tv_price);
+            rowImage = itemView.findViewById(R.id.iv_image);
         }
 
     }
