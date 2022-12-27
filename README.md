@@ -6,6 +6,7 @@ Menampilkan Data Dengan Retrofit Pada Activity:
 2. MenuDetail
 
 Tampilan List Menu 
+
 ![List Menu](https://user-images.githubusercontent.com/69706091/209652896-d00cf61a-4649-459d-96bc-d09932750c28.jpg)
 
 Tampilan Apabila Salah Satu Menu Ditekan
